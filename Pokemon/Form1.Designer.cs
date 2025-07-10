@@ -18,6 +18,7 @@ namespace Pokemon
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             Quitter = new Button();
             attaquant = new ComboBox();
             receveur = new ComboBox();
@@ -30,8 +31,10 @@ namespace Pokemon
             pictureBoxDefense = new PictureBox();
             TableauAttaques = new TableLayoutPanel();
             chatBox = new RichTextBox();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBoxAttaque).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxDefense).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // Quitter
@@ -98,9 +101,9 @@ namespace Pokemon
             // 
             // progressBarAtk
             // 
-            progressBarAtk.Location = new Point(28, 262);
+            progressBarAtk.Location = new Point(28, 263);
             progressBarAtk.Name = "progressBarAtk";
-            progressBarAtk.Size = new Size(270, 24);
+            progressBarAtk.Size = new Size(270, 23);
             progressBarAtk.TabIndex = 6;
             // 
             // progressBarDef
@@ -112,17 +115,17 @@ namespace Pokemon
             // 
             // pictureBoxAttaque
             // 
-            pictureBoxAttaque.Location = new Point(28, 12);
+            pictureBoxAttaque.Location = new Point(302, 182);
             pictureBoxAttaque.Name = "pictureBoxAttaque";
-            pictureBoxAttaque.Size = new Size(270, 205);
+            pictureBoxAttaque.Size = new Size(92, 75);
             pictureBoxAttaque.TabIndex = 10;
             pictureBoxAttaque.TabStop = false;
             // 
             // pictureBoxDefense
             // 
-            pictureBoxDefense.Location = new Point(574, 12);
+            pictureBoxDefense.Location = new Point(534, 77);
             pictureBoxDefense.Name = "pictureBoxDefense";
-            pictureBoxDefense.Size = new Size(313, 205);
+            pictureBoxDefense.Size = new Size(95, 73);
             pictureBoxDefense.TabIndex = 11;
             pictureBoxDefense.TabStop = false;
             // 
@@ -148,6 +151,15 @@ namespace Pokemon
             chatBox.TabIndex = 13;
             chatBox.Text = "";
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(223, 31);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(485, 226);
+            pictureBox1.TabIndex = 14;
+            pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -165,10 +177,12 @@ namespace Pokemon
             Controls.Add(receveur);
             Controls.Add(attaquant);
             Controls.Add(Quitter);
+            Controls.Add(pictureBox1);
             Name = "Form1";
             Text = "Combat Pokémon";
             ((System.ComponentModel.ISupportInitialize)pictureBoxAttaque).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxDefense).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -181,7 +195,7 @@ namespace Pokemon
             Pokemon pkm = (Pokemon)cb.Items[e.Index];
 
             // Déterminer la couleur du texte selon l'état du Pokémon
-            Color textColor = (pkm.PV <= 0) ? Color.Gray : SystemColors.ControlText;
+            Color textColor = (pkm.Statistiques.PV <= 0) ? Color.Gray : SystemColors.ControlText;
 
             e.DrawBackground();
             using (SolidBrush brush = new SolidBrush(textColor))
@@ -205,5 +219,6 @@ namespace Pokemon
         private PictureBox pictureBoxDefense;
         private TableLayoutPanel TableauAttaques;
         private RichTextBox chatBox;
+        private PictureBox pictureBox1;
     }
 }

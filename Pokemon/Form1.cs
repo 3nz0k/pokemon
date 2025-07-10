@@ -13,6 +13,7 @@ namespace Pokemon
         public Form1()
         {
             InitializeComponent();
+
             //InitTableauAttaques();
 
 
@@ -70,54 +71,56 @@ namespace Pokemon
         {
             tousLesPokemons = new List<Pokemon>
             {
-                new Pokemon("Pikachu", 100, 10, "Électrique", new List<Attaque>
+                //Pokemon(string nom, List<Stats> stats, string type, List<Attaque> atk, string imageAtk, string imageDef)
+                new Pokemon("Pikachu", new Stats(35, 55, 40, 90, 50, 50), "Électrique", new List<Attaque>
                 {
-                    new Attaque("Éclair", "Électrique", 30, 30, Properties.Resources.electrique),
-                    new Attaque("Tonnerre", "Électrique", 60, 10, Properties.Resources.electrique),
-                    new Attaque("Vive-Attaque", "Normal", 30, 20, Properties.Resources.normal),
-                    new Attaque("Cage-Éclair", "Électrique", 20, 15, Properties.Resources.electrique),
+                    //Attaque(string nom, string type, int puissance, int nbMax, string typecap, Bitmap imgType)
+                    new Attaque("Éclair", "Électrique", 30, 30, "special",Properties.Resources.electrique),
+                    new Attaque("Tonnerre", "Électrique", 60, 10, "special", Properties.Resources.electrique),
+                    new Attaque("Vive-Attaque", "Normal", 30, 20, "physique", Properties.Resources.normal),
+                    new Attaque("Cage-Éclair", "Électrique", 20, 15, "status", Properties.Resources.electrique),
                 }, "https://img.pokemondb.net/sprites/heartgold-soulsilver/back-normal/pikachu.png", "https://img.pokemondb.net/sprites/heartgold-soulsilver/normal/pikachu.png"),
 
-                new Pokemon("Carapuce", 100, 15, "Eau", new List<Attaque>
+                new Pokemon("Carapuce", new Stats(44, 48, 65, 43, 50, 64), "Eau", new List<Attaque>
                 {
-                    new Attaque("Pistolet à O", "Eau", 40, 25, Properties.Resources.eau),
-                    new Attaque("Charge", "Normal", 40, 35, Properties.Resources.normal),
+                    new Attaque("Pistolet à O", "Eau", 40, 25, "special", Properties.Resources.eau),
+                    new Attaque("Charge", "Normal", 40, 35, "physique", Properties.Resources.normal),
                 }, "https://img.pokemondb.net/sprites/heartgold-soulsilver/back-normal/squirtle.png", "https://img.pokemondb.net/sprites/heartgold-soulsilver/normal/squirtle.png"),
 
-                new Pokemon("Salamèche", 100, 12, "Feu", new List<Attaque>
+                new Pokemon("Salamèche", new Stats(39, 52, 43, 65, 60, 50), "Feu", new List<Attaque>
                 {
-                    new Attaque("Flammèche", "Feu", 40, 25, Properties.Resources.feu),
-                    new Attaque("Griffe", "Normal", 35, 30, Properties.Resources.normal),
+                    new Attaque("Flammèche", "Feu", 40, 25, "special", Properties.Resources.feu),
+                    new Attaque("Griffe", "Normal", 35, 30, "physique", Properties.Resources.normal),
                 }, "https://img.pokemondb.net/sprites/heartgold-soulsilver/back-normal/charmander.png", "https://img.pokemondb.net/sprites/heartgold-soulsilver/normal/charmander.png"),
 
-                new Pokemon("Bulbizarre", 150, 14, "Plante", new List<Attaque>
+                new Pokemon("Bulbizarre", new Stats(45, 49, 49, 45, 65, 65), "Plante", new List<Attaque>
                 {
-                    new Attaque("Fouet Lianes", "Plante", 45, 20, Properties.Resources.plante),
-                    new Attaque("Charge", "Normal", 35, 30, Properties.Resources.normal),
+                    new Attaque("Fouet Lianes", "Plante", 45, 20, "special", Properties.Resources.plante),
+                    new Attaque("Charge", "Normal", 35, 30, "physique", Properties.Resources.normal),
                 }, "https://img.pokemondb.net/sprites/heartgold-soulsilver/back-normal/bulbasaur.png", "https://img.pokemondb.net/sprites/heartgold-soulsilver/normal/bulbasaur.png"),
 
-                new Pokemon("Ronflex", 200, 20, "Normal", new List<Attaque>
+                new Pokemon("Ronflex", new Stats(160, 110, 65, 30, 65, 110), "Normal", new List<Attaque>
                 {
-                    new Attaque("Gros Lourd", "Normal", 50, 15, Properties.Resources.normal),
-                    new Attaque("Coud'Boue", "Sol", 40, 20, Properties.Resources.sol),
+                    new Attaque("Giga Impact", "Normal", 150, 5, "physique", Properties.Resources.normal),
+                    new Attaque("Coud'Boue", "Sol", 40, 20, "special", Properties.Resources.sol),
                 }, "https://img.pokemondb.net/sprites/heartgold-soulsilver/back-normal/snorlax.png", "https://img.pokemondb.net/sprites/heartgold-soulsilver/normal/snorlax.png"),
 
-                new Pokemon("Tadmorv", 80, 8, "Poison", new List<Attaque>
+                new Pokemon("Tadmorv", new Stats(80, 80, 50, 25, 40, 50), "Poison", new List<Attaque>
                 {
-                    new Attaque("Détritus", "Poison", 30, 25, Properties.Resources.poison),
-                    new Attaque("Acide", "Poison", 40, 20, Properties.Resources.poison),
+                    new Attaque("Détritus", "Poison", 65, 20, "special", Properties.Resources.poison),
+                    new Attaque("Écras'Face", "Normal", 40, 35, "physique", Properties.Resources.poison),
                 }, "https://img.pokemondb.net/sprites/heartgold-soulsilver/back-normal/muk.png", "https://img.pokemondb.net/sprites/heartgold-soulsilver/normal/muk.png"),
 
-                new Pokemon("Smogo", 90, 9, "Poison", new List<Attaque>
+                new Pokemon("Smogo", new Stats(65, 90, 120, 40, 85, 70), "Poison", new List<Attaque>
                 {
-                    new Attaque("Gaz Toxik", "Poison", 35, 20, Properties.Resources.poison),
-                    new Attaque("Explosion", "Normal", 100, 5, Properties.Resources.normal),
+                    new Attaque("Gaz Toxik", "Poison", 35, 20, "status", Properties.Resources.poison),
+                    new Attaque("Explosion", "Normal", 250, 5, "physique", Properties.Resources.normal),
                 }, "https://img.pokemondb.net/sprites/heartgold-soulsilver/back-normal/weezing.png", "https://img.pokemondb.net/sprites/heartgold-soulsilver/normal/weezing.png"),
 
-                new Pokemon("Fantominus", 70, 7, "Spectre", new List<Attaque>
+                new Pokemon("Fantominus", new Stats(30, 35, 30, 80, 100, 35), "Spectre", new List<Attaque>
                 {
-                    new Attaque("Onde Folie", "Psy", 30, 25, Properties.Resources.psy),
-                    new Attaque("Ball'Ombre", "Spectre", 40, 20, Properties.Resources.spectre),
+                    new Attaque("Léchouille", "Spectre", 30, 30, "physique", Properties.Resources.psy),
+                    new Attaque("Ball'Ombre", "Spectre", 60, 10, "special", Properties.Resources.spectre),
                 }, "https://img.pokemondb.net/sprites/heartgold-soulsilver/back-normal/gastly.png", "https://img.pokemondb.net/sprites/heartgold-soulsilver/normal/gastly.png"),
             };
 
@@ -196,17 +199,18 @@ namespace Pokemon
         {
             Pokemon Attaquant = (Pokemon)attaquant.SelectedItem;
 
-            labelA.Text = $"PV : {Attaquant.PV}";
+            labelA.Text = $"PV : {Attaquant.Statistiques.PV}";
             //progressBarAtk.Value = Attaquant.PV;
-            progressBarAtk.Maximum = Attaquant.PVMax;
-            progressBarAtk.Value = Math.Min(Attaquant.PV, Attaquant.PVMax);
+            progressBarAtk.Maximum = Attaquant.Statistiques.PVMax;
+            progressBarAtk.Value = Math.Min(Attaquant.Statistiques.PV, Attaquant.Statistiques.PVMax);
             if (progressBarAtk.Value >= 50) progressBarAtk.SetState(1);
             else if (progressBarAtk.Value <= 50 && progressBarAtk.Value >= 25) progressBarAtk.SetState(3);
             else if (progressBarAtk.Value <= 25) progressBarAtk.SetState(2);
 
             //Image
+            pictureBoxAttaque.BackColor = Color.Transparent;
+            pictureBoxAttaque.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBoxAttaque.ImageLocation = Attaquant.ImageAtk;
-            pictureBoxAttaque.SizeMode = PictureBoxSizeMode.Normal;
 
             if (Attaquant == null)
             {
@@ -222,12 +226,9 @@ namespace Pokemon
 
             if (attaquant.SelectedItem is Pokemon selectedPokemon)
             {
-
                 TableauAttaques.Controls.Clear();
-                //TableauAttaques.ColumnStyles.Clear();
-                //TableauAttaques.RowStyles.Clear();
-
                 int i = 0;
+
                 foreach (var attaque in Attaquant.Attaques)
                 {
                     var panel = new Panel();
@@ -238,21 +239,26 @@ namespace Pokemon
                     btn.AutoSize = false;
                     btn.Height = 50;
                     btn.Text = $"{attaque.Nom}\n DGT: {attaque.Puissance} | PP: {attaque.nbAttaques}";
+                    //btn.Text = $"{attaque.Nom}";
                     btn.Dock = DockStyle.Fill;
                     btn.Font = new Font("Consolas", 10, FontStyle.Bold);
-                    btn.BackColor = Color.LightYellow;
+                    if (attaque.TypeCap == "physique")
+                        btn.BackColor = Color.LightPink;
+                    else if (attaque.TypeCap == "special")
+                        btn.BackColor = Color.LightBlue;
+                    else if (attaque.TypeCap == "status")
+                        btn.BackColor = Color.LightYellow;
 
                     //Mise d'une image
                     btn.Image = attaque.TypeImage;
                     btn.ImageAlign = ContentAlignment.MiddleLeft;
                     btn.TextAlign = ContentAlignment.MiddleRight;
 
+                    //Label label = new Label();
+                    //label.Text = $"Dégâts : {attaque.Puissance}, PP : {attaque.nbAttaques}";
 
                     btn.Click += BtnAttaque_Click;
                     btn.Tag = attaque; // Stocke l'attaque dans le tag du bouton
-
-                    Label label = new Label();
-                    label.Text = $"Dégâts : {attaque.Puissance}, PP : {attaque.nbAttaques}";
 
                     panel.Controls.Add(btn);
 
@@ -302,11 +308,11 @@ namespace Pokemon
                 btn.Enabled = false;
             }
 
-            if (Attaquant == Receveur)
+            /*if (Attaquant == Receveur)
             {
                 Message("Un Pokémon ne peut pas s'attaquer lui même !", Color.Green);
                 return;
-            }
+            }*/
 
             if (Receveur == null || Attaquant == null)
             {
@@ -326,10 +332,10 @@ namespace Pokemon
                 ActiverBoutonsAttaque(true);
                 Attaquant.Attaquer(Receveur, attaque, this);
                 Message($"{Attaquant.Nom} attaque {Receveur.Nom} !", Color.Blue);
-                labelR.Text = $"PV : {Receveur.PV}";
+                labelR.Text = $"PV : {Receveur.Statistiques.PV}";
                 //progressBarDef.Value = Receveur.PV;
-                progressBarDef.Maximum = Receveur.PVMax;
-                progressBarDef.Value = Math.Max(0, Math.Min(Receveur.PV, Receveur.PVMax));
+                progressBarDef.Maximum = Receveur.Statistiques.PVMax;
+                progressBarDef.Value = Math.Max(0, Math.Min(Receveur.Statistiques.PV, Receveur.Statistiques.PVMax));
 
                 if (progressBarDef.Value >= 50) progressBarDef.SetState(1);
                 else if (progressBarDef.Value <= 50 && progressBarDef.Value >= 25) progressBarDef.SetState(3);
@@ -365,9 +371,9 @@ namespace Pokemon
                 Receveur.Attaquer(Attaquant, attaqueChoisie, this);
                 Message($"{Receveur.Nom} attaque {Attaquant.Nom} avec {attaqueChoisie.Nom} !", Color.Blue);
                 Message($"{Receveur.Nom} attaque {Attaquant.Nom} !", Color.Blue);
-                labelA.Text = $"PV : {Attaquant.PV}";
-                progressBarAtk.Maximum = Attaquant.PVMax;
-                progressBarAtk.Value = Math.Max(0, Math.Min(Attaquant.PV, Attaquant.PVMax));
+                labelA.Text = $"PV : {Attaquant.Statistiques.PV}";
+                progressBarAtk.Maximum = Attaquant.Statistiques.PVMax;
+                progressBarAtk.Value = Math.Max(0, Math.Min(Attaquant.Statistiques.PV, Attaquant.Statistiques.PVMax));
 
                 if (progressBarAtk.Value >= 50) progressBarAtk.SetState(1);
                 else if (progressBarAtk.Value <= 50 && progressBarAtk.Value >= 25) progressBarAtk.SetState(3);
@@ -396,11 +402,11 @@ namespace Pokemon
         {
             Pokemon Receveur = (Pokemon)receveur.SelectedItem;
 
-            labelR.Text = $"PV : {Receveur.PV}";
+            labelR.Text = $"PV : {Receveur.Statistiques.PV}";
             //progressBarDef.Value = Receveur.PV;
 
-            progressBarDef.Maximum = Receveur.PVMax;
-            progressBarDef.Value = Math.Min(Receveur.PV, Receveur.PVMax);
+            progressBarDef.Maximum = Receveur.Statistiques.PVMax;
+            progressBarDef.Value = Math.Min(Receveur.Statistiques.PV, Receveur.Statistiques.PVMax);
 
             if (progressBarDef.Value >= 50) progressBarDef.SetState(1);
             else if (progressBarDef.Value <= 50 && progressBarDef.Value >= 25) progressBarDef.SetState(3);
@@ -457,7 +463,7 @@ namespace Pokemon
         private void SelectionnerPokemonDisponible(ComboBox comboBox)
         {
             // Récupère tous les Pokémon de la ComboBox qui ne sont pas KO
-            var pokemonsDisponibles = comboBox.Items.Cast<Pokemon>().Where(p => p.PV > 0).ToList();
+            var pokemonsDisponibles = comboBox.Items.Cast<Pokemon>().Where(p => p.Statistiques.PV > 0).ToList();
 
             if (pokemonsDisponibles.Count == 0)
             {

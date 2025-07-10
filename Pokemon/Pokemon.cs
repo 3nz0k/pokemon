@@ -11,11 +11,7 @@ namespace Pokemon
     {
         public string Nom { get; set; }
 
-        public int PV { get; set; }
-        public int PVMax { get; set; }
-
-        public int Attaque { get; set; }
-        public int Defense { get; set; }
+        public Stats Statistiques { get; set; }
 
         public string Type { get; set; }
 
@@ -23,17 +19,15 @@ namespace Pokemon
 
         public string ImageAtk { get; set; }
         public string ImageDef { get; set; }
-
-        public Pokemon(string nom, int pv, int defense, string type, List <Attaque> atk, string imgAtk, string imgDef)
+        
+        public Pokemon(string nom, Stats stats, string type, List <Attaque> atk, string imageAtk, string imageDef)
         {
             Nom = nom;
-            PV = pv;
-            PVMax = pv;
-            Defense = defense;
+            Statistiques = stats;
             Type = type;
             Attaques = atk;
-            ImageAtk = imgAtk;
-            ImageDef = imgDef;
+            ImageAtk = imageAtk;
+            ImageDef = imageDef;
         }
 
         public override string ToString()
@@ -46,10 +40,10 @@ namespace Pokemon
             int degats = DamageType(atk, cible.Type);
             form.Message($"{Nom} attaque {cible.Nom} avec {degats} points d'attaque !, Type Atk = {atk.Type}, Type def = {cible.Type}", Color.Green);
             if (degats < 1) degats = 1;
-            cible.PV -= degats;
+            cible.Statistiques.PV -= degats;
             //cible.nbAttaque -= 1;
 
-            if(cible.PV < 0) cible.PV = 0;
+            if(cible.Statistiques.PV < 0) cible.Statistiques.PV = 0;
         }
 
         public static int DamageType(Attaque atk, string typeDef)
@@ -231,15 +225,10 @@ namespace Pokemon
             // Aucun effet spécial : dégâts normaux
             return atk.Puissance;
         }
-
-
-
         
         public bool estKo()
         {
-            return PV <= 0;
+            return Statistiques.PV <= 0;
         }
-
-
     }
 }
