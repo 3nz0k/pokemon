@@ -64,10 +64,11 @@ namespace Pokemon
             receveur.DrawMode = DrawMode.OwnerDrawFixed;
             receveur.DropDownStyle = ComboBoxStyle.DropDownList;
             receveur.FormattingEnabled = true;
-            receveur.Location = new Point(574, 292);
+            receveur.Location = new Point(1125, 12);
             receveur.Name = "receveur";
             receveur.Size = new Size(313, 24);
             receveur.TabIndex = 2;
+            receveur.Visible = false;
             receveur.DrawItem += ComboBox_DrawItem;
             receveur.SelectedIndexChanged += receveur_SelectedIndexChanged;
             // 
@@ -84,7 +85,7 @@ namespace Pokemon
             // labelR
             // 
             labelR.AutoSize = true;
-            labelR.Location = new Point(718, 319);
+            labelR.Location = new Point(718, 294);
             labelR.Name = "labelR";
             labelR.Size = new Size(27, 15);
             labelR.TabIndex = 4;

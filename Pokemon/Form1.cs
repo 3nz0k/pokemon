@@ -199,13 +199,15 @@ namespace Pokemon
         {
             Pokemon Attaquant = (Pokemon)attaquant.SelectedItem;
 
-            labelA.Text = $"PV : {Attaquant.Statistiques.PV}";
-            //progressBarAtk.Value = Attaquant.PV;
+            BarreVieAtk(Attaquant);
+
+            /*labelA.Text = $"PV : {Attaquant.Statistiques.PV}";
             progressBarAtk.Maximum = Attaquant.Statistiques.PVMax;
             progressBarAtk.Value = Math.Min(Attaquant.Statistiques.PV, Attaquant.Statistiques.PVMax);
+
             if (progressBarAtk.Value >= 50) progressBarAtk.SetState(1);
             else if (progressBarAtk.Value <= 50 && progressBarAtk.Value >= 25) progressBarAtk.SetState(3);
-            else if (progressBarAtk.Value <= 25) progressBarAtk.SetState(2);
+            else if (progressBarAtk.Value <= 25) progressBarAtk.SetState(2);*/
 
             //Image
             pictureBoxAttaque.BackColor = Color.Transparent;
@@ -253,9 +255,6 @@ namespace Pokemon
                     btn.Image = attaque.TypeImage;
                     btn.ImageAlign = ContentAlignment.MiddleLeft;
                     btn.TextAlign = ContentAlignment.MiddleRight;
-
-                    //Label label = new Label();
-                    //label.Text = $"Dégâts : {attaque.Puissance}, PP : {attaque.nbAttaques}";
 
                     btn.Click += BtnAttaque_Click;
                     btn.Tag = attaque; // Stocke l'attaque dans le tag du bouton
@@ -326,66 +325,148 @@ namespace Pokemon
                 progressBarAtk.Value = 0;
                 ActiverBoutonsAttaque(false);
                 SelectionnerPokemonDisponible(attaquant);
+                Attaquant = (Pokemon)attaquant.SelectedItem;
+                progressBarAtk.Value = Math.Min(Attaquant.Statistiques.PV, Attaquant.Statistiques.PVMax);
+                Message("1", Color.Red);
+                return;
+            }
+            if (Receveur.estKo() == true)
+            {
+                Message("Le pokemon ennemi est k.o. !", Color.Red);
+                progressBarDef.Value = 0;
+                SelectionnerPokemonDisponible(receveur);
+                Receveur = (Pokemon)receveur.SelectedItem;
+                progressBarDef.Value = Math.Min(Receveur.Statistiques.PV, Receveur.Statistiques.PVMax);
+                Message("2", Color.Red);
+                return;
             }
             else
             {
                 ActiverBoutonsAttaque(true);
-                Attaquant.Attaquer(Receveur, attaque, this);
-                Message($"{Attaquant.Nom} attaque {Receveur.Nom} !", Color.Blue);
-                labelR.Text = $"PV : {Receveur.Statistiques.PV}";
-                //progressBarDef.Value = Receveur.PV;
-                progressBarDef.Maximum = Receveur.Statistiques.PVMax;
-                progressBarDef.Value = Math.Max(0, Math.Min(Receveur.Statistiques.PV, Receveur.Statistiques.PVMax));
-
-                if (progressBarDef.Value >= 50) progressBarDef.SetState(1);
-                else if (progressBarDef.Value <= 50 && progressBarDef.Value >= 25) progressBarDef.SetState(3);
-                else if (progressBarDef.Value <= 25) progressBarDef.SetState(2);
-                if (Attaquant.estKo() == true)
+                if (Attaquant.Statistiques.Vitesse >= Receveur.Statistiques.Vitesse)
                 {
-                    Message($"{Attaquant.Nom} est k.o. !", Color.Red);
-                    progressBarAtk.Value = 0;
-                    //attaquant.SelectedIndex = attaquant.SelectedIndex + 1;
-                    SelectionnerPokemonDisponible(attaquant);
-                }
-            }
+                    //ATTAQUANT
+                    Attaquant.Attaquer(Receveur, attaque, this);
+                    Message($"{Attaquant.Nom} attaque {Receveur.Nom} !", Color.Blue);
 
-            if (Receveur.estKo() == true)
-            {
-                Message("Votre pokémon est k.o., il ne peut donc pas attaquer !", Color.Red);
-                progressBarDef.Value = 0;
-                //receveur.SelectedIndex = receveur.SelectedIndex + 1;
-                SelectionnerPokemonDisponible(receveur);
-            }
-            else
-            {
-                /*if (listBoxAtk.Items.Count > 0)
-                {
+                    //Barre de Vie Defenseur
+                    BarreVieDef(Receveur);
+                    
+                    if (Receveur.estKo() == true)
+                    {
+                        Message($"{Receveur.Nom} est k.o. !", Color.Red);
+                        progressBarDef.Value = 0;
+                        SelectionnerPokemonDisponible(receveur);
+                        Receveur = (Pokemon)receveur.SelectedItem;
+                        progressBarDef.Value = Math.Min(Receveur.Statistiques.PV, Receveur.Statistiques.PVMax);
+                        Message("3", Color.Red);
+                        return;
+                    }
+
+                    //DEFENSEUR
                     Random rnd = new Random();
-                    int index = rnd.Next(listBoxDef.Items.Count);
-                    listBoxDef.SelectedIndex = index;
-                }
-                Receveur.Attaquer(Attaquant, (Attaque)listBoxDef.SelectedItem);*/
-                Random rnd = new Random();
-                int index = rnd.Next(Receveur.Attaques.Count);
-                Attaque attaqueChoisie = Receveur.Attaques[index];
-                Receveur.Attaquer(Attaquant, attaqueChoisie, this);
-                Message($"{Receveur.Nom} attaque {Attaquant.Nom} avec {attaqueChoisie.Nom} !", Color.Blue);
-                Message($"{Receveur.Nom} attaque {Attaquant.Nom} !", Color.Blue);
-                labelA.Text = $"PV : {Attaquant.Statistiques.PV}";
-                progressBarAtk.Maximum = Attaquant.Statistiques.PVMax;
-                progressBarAtk.Value = Math.Max(0, Math.Min(Attaquant.Statistiques.PV, Attaquant.Statistiques.PVMax));
+                    int index = rnd.Next(Receveur.Attaques.Count);
+                    Attaque attaqueChoisie = Receveur.Attaques[index];
 
-                if (progressBarAtk.Value >= 50) progressBarAtk.SetState(1);
-                else if (progressBarAtk.Value <= 50 && progressBarAtk.Value >= 25) progressBarAtk.SetState(3);
-                else if (progressBarAtk.Value <= 25) progressBarAtk.SetState(2);
-                if (Attaquant.estKo() == true)
+                    Receveur.Attaquer(Attaquant, attaqueChoisie, this);
+                    Message($"{Receveur.Nom} attaque {Attaquant.Nom} avec {attaqueChoisie.Nom} !", Color.Blue);
+                    Message($"{Receveur.Nom} attaque {Attaquant.Nom} !", Color.Blue);
+
+                    BarreVieAtk(Attaquant);
+
+                    if (Attaquant.estKo() == true)
+                    {
+                        Message($"{Attaquant.Nom} est k.o. !", Color.Red);
+                        progressBarAtk.Value = 0;
+                        SelectionnerPokemonDisponible(attaquant);
+                        Attaquant = (Pokemon)attaquant.SelectedItem;
+                        progressBarAtk.Value = Math.Min(Attaquant.Statistiques.PV, Attaquant.Statistiques.PVMax);
+                        Message("4", Color.Red);
+                        return;
+                    }
+                }
+                else
                 {
-                    Message($"{Attaquant.Nom} est k.o. !", Color.Red);
-                    progressBarAtk.Value = 0;
-                    SelectionnerPokemonDisponible(receveur);
+                    //DEFENSEUR
+                    Random rnd = new Random();
+                    int index = rnd.Next(Receveur.Attaques.Count);
+                    Attaque attaqueChoisie = Receveur.Attaques[index];
+
+                    Receveur.Attaquer(Attaquant, attaqueChoisie, this);
+                    Message($"{Receveur.Nom} attaque {Attaquant.Nom} avec {attaqueChoisie.Nom} !", Color.Blue);
+                    Message($"{Receveur.Nom} attaque {Attaquant.Nom} !", Color.Blue);
+
+                    //Barre de Vie Attaquant
+                    BarreVieAtk(Attaquant);
+
+                    if (Attaquant.estKo() == true)
+                    {
+                        Message($"{Attaquant.Nom} est k.o. !", Color.Red);
+                        progressBarAtk.Value = 0;
+                        SelectionnerPokemonDisponible(attaquant);
+                        Attaquant = (Pokemon)attaquant.SelectedItem;
+                        progressBarAtk.Value = Math.Min(Attaquant.Statistiques.PV, Attaquant.Statistiques.PVMax);
+                        Message("5", Color.Red);
+                        return;
+                    }
+
+                    //ATTAQUANT
+                    Attaquant.Attaquer(Receveur, attaque, this);
+                    Message($"{Attaquant.Nom} attaque {Receveur.Nom} !", Color.Blue);
+
+                    //Barre de Vie Defenseur
+                    BarreVieDef(Receveur);
+
+                    if (Receveur.estKo() == true)
+                    {
+                        Message($"{Receveur.Nom} est k.o. !", Color.Red);
+                        progressBarDef.Value = 0;
+                        SelectionnerPokemonDisponible(receveur);
+                        Receveur = (Pokemon)receveur.SelectedItem;
+                        progressBarDef.Value = Math.Min(Receveur.Statistiques.PV, Receveur.Statistiques.PVMax);
+                        Message("6", Color.Red);
+                        return;
+                    }
                 }
             }
+        }
 
+        public void BarreVieAtk(object sender)
+        {
+            Pokemon Attaquant = (Pokemon)attaquant.SelectedItem;
+
+            if (Attaquant == null)
+            {
+                Message("Attaquant est null !", Color.Red);
+                return;
+            }
+
+            labelA.Text = $"PV : {Attaquant.Statistiques.PV}";
+            progressBarAtk.Maximum = Attaquant.Statistiques.PVMax;
+            progressBarAtk.Value = Math.Min(Attaquant.Statistiques.PV, Attaquant.Statistiques.PVMax);
+
+            if (progressBarAtk.Value >= progressBarAtk.Maximum / 2) progressBarAtk.SetState(1);
+            else if (progressBarAtk.Value <= progressBarAtk.Maximum / 2 && progressBarAtk.Maximum >= progressBarAtk.Maximum / 4) progressBarAtk.SetState(3);
+            else if (progressBarAtk.Value <= progressBarAtk.Maximum /4) progressBarAtk.SetState(2);
+        }
+
+        public void BarreVieDef(object sender)
+        {
+            Pokemon Receveur = (Pokemon)receveur.SelectedItem;
+
+            if (Receveur == null)
+            {
+                Message("Receveur est null !", Color.Red);
+                return;
+            }
+
+            labelR.Text = $"PV : {Receveur.Statistiques.PV}";
+            progressBarDef.Maximum = Receveur.Statistiques.PVMax;
+            progressBarDef.Value = Math.Min(Receveur.Statistiques.PV, Receveur.Statistiques.PVMax);
+
+            if (progressBarDef.Value >= progressBarDef.Maximum / 2) progressBarDef.SetState(1);
+            else if (progressBarDef.Value <= progressBarDef.Maximum / 2 && progressBarDef.Maximum >= progressBarDef.Maximum / 4) progressBarDef.SetState(3);
+            else if (progressBarDef.Value <= progressBarDef.Maximum /4) progressBarDef.SetState(2);
         }
 
         public void Message(string message, Color couleur)
@@ -402,7 +483,7 @@ namespace Pokemon
         {
             Pokemon Receveur = (Pokemon)receveur.SelectedItem;
 
-            labelR.Text = $"PV : {Receveur.Statistiques.PV}";
+            /*labelR.Text = $"PV : {Receveur.Statistiques.PV}";
             //progressBarDef.Value = Receveur.PV;
 
             progressBarDef.Maximum = Receveur.Statistiques.PVMax;
@@ -410,7 +491,8 @@ namespace Pokemon
 
             if (progressBarDef.Value >= 50) progressBarDef.SetState(1);
             else if (progressBarDef.Value <= 50 && progressBarDef.Value >= 25) progressBarDef.SetState(3);
-            else if (progressBarDef.Value <= 25) progressBarDef.SetState(2);
+            else if (progressBarDef.Value <= 25) progressBarDef.SetState(2);*/
+            BarreVieDef(Receveur);
 
             //Image
             pictureBoxDefense.ImageLocation = Receveur.ImageDef;
